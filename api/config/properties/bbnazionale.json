@@ -1,0 +1,56 @@
+{
+  "id": "bbnazionale",
+  "name": "B&B Via Nazionale",
+  "channels": {
+    "booking": {
+      "enabled": true,
+      "property_id": "INSERISCI_QUI_IL_TUO_PROPERTY_ID_BOOKING",
+      "credentials": {
+        "username": "tuo_username_xml",
+        "password": "tua_password_xml"
+      },
+      "mappings": [
+        {
+          "hd_rate_id": 30,
+          "hd_rate_name": "BKGOTA|VNTa Camera matrimoniale (2 persone)",
+          "camera_id": "BB1",
+          "ota_room_id": "87821719",
+          "ota_rate_id": "15188081",
+          "ota_rate_name": "Standard rate 2 adulti - Camere B&B"
+        },
+        {
+          "hd_rate_id": 31,
+          "hd_rate_name": "BKGOTA|VNTb Camera matrimoniale (2 persone)",
+          "camera_id": "BB2",
+          "ota_room_id": "87821720",
+          "ota_rate_id": "15188081",
+          "ota_rate_name": "Standard rate 2 adulti - Camere B&B"
+        },
+        {
+          "hd_rate_id": 32,
+          "hd_rate_name": "BKGOTA|VNTc Camera doppia (2 persone)",
+          "camera_id": "BB3",
+          "ota_room_id": "87821721",
+          "ota_rate_id": "15188081",
+          "ota_rate_name": "Standard rate 2 adulti - Camere B&B"
+        },
+        {
+          "hd_rate_id": 34,
+          "hd_rate_name": "BKGOTA|VNTd Camera doppia (2 persone)",
+          "camera_id": "BB4",
+          "ota_room_id": "87821723",
+          "ota_rate_id": "15188081",
+          "ota_rate_name": "Standard rate 2 adulti - Camere B&B"
+        },
+        {
+          "hd_rate_id": 35,
+          "hd_rate_name": "BKGOTA|VNTe Camera doppia (2 persone)",
+          "camera_id": "BB5",
+          "ota_room_id": "87821722",
+          "ota_rate_id": "15188081",
+          "ota_rate_name": "Standard rate 2 adulti - Camere B&B"
+        }
+      ]
+    }
+  }
+}

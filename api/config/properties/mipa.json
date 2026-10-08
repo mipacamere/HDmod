@@ -1,0 +1,48 @@
+{
+  "id": "mipa",
+  "name": "MiPA",
+  "channels": {
+    "booking": {
+      "enabled": true,
+      "property_id": "INSERISCI_QUI_IL_TUO_PROPERTY_ID_BOOKING_MIPA",
+      "credentials": {
+        "username": "tuo_username_xml_mipa",
+        "password": "tua_password_xml_mipa"
+      },
+      "mappings": [
+        {
+          "hd_rate_id": 66,
+          "hd_rate_name": "BKGOTA|MiPAIVa Camera tripla (3 persone)",
+          "camera_id": "MiPA - 1",
+          "ota_room_id": "1076424901",
+          "ota_rate_id": "65131949",
+          "ota_rate_name": "MiPA JS - 3 persone NO Colazione"
+        },
+        {
+          "hd_rate_id": 69,
+          "hd_rate_name": "BKGOTA|MiPAIVb Camera tripla (3 persone)",
+          "camera_id": "MiPA - 2",
+          "ota_room_id": "1076424902",
+          "ota_rate_id": "65131949",
+          "ota_rate_name": "MiPA JS - 3 persone NO Colazione"
+        },
+        {
+          "hd_rate_id": 71,
+          "hd_rate_name": "BKGOTA|MiPAIVc Camera tripla (3 persone)",
+          "camera_id": "MiPA - 3",
+          "ota_room_id": "1076424903",
+          "ota_rate_id": "65131949",
+          "ota_rate_name": "MiPA JS - 3 persone NO Colazione"
+        },
+        {
+          "hd_rate_id": 73,
+          "hd_rate_name": "BKGOTA|MiPAIVd Camera tripla (3 persone)",
+          "camera_id": "MiPA - 4",
+          "ota_room_id": "1076424904",
+          "ota_rate_id": "46615613",
+          "ota_rate_name": "MiPA 4 - 3 persone NO Colazione"
+        }
+      ]
+    }
+  }
+}

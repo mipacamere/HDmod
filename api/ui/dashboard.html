@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Channel Manager - Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; }
+        .property-card { transition: transform 0.2s; }
+        .property-card:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .channel-badge { font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">🏨 Channel Manager</a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link active" href="dashboard.html">Dashboard</a>
+                <a class="nav-link" href="mappings.html">Mappature</a>
+                <a class="nav-link" href="logs.html">Log</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Proprietà Configurate</h2>
+            <button class="btn btn-success" onclick="triggerSync()">
+                🔄 Sincronizza Ora
+            </button>
+        </div>
+
+        <div id="properties-container" class="row">
+            <!-- Le proprietà verranno caricate qui -->
+        </div>
+    </div>
+
+    <script>
+        const API_KEY = 'MiaChiaveSegretaSuperComplessa_2026';
+        const API_BASE = '../';
+
+        async function loadProperties() {
+            try {
+                const response = await fetch(`${API_BASE}get_properties.php`, {
+                    headers: { 'X-API-KEY': API_KEY }
+                });
+                const data = await response.json();
+                
+                if (data.success) {
+                    renderProperties(data.data);
+                }
+            } catch (error) {
+                console.error('Errore caricamento proprietà:', error);
+            }
+        }
+
+        function renderProperties(properties) {
+            const container = document.getElementById('properties-container');
+            container.innerHTML = '';
+            
+            Object.values(properties).forEach(prop => {
+                const channelsHtml = Object.entries(prop.channels).map(([name, ch]) => {
+                    const badgeClass = ch.enabled ? 'bg-success' : 'bg-secondary';
+                    return `<span class="badge ${badgeClass} channel-badge me-2">${name}: ${ch.mappings_count} camere</span>`;
+                }).join('');
+                
+                const card = `
+                    <div class="col-md-6 mb-3">
+                        <div class="card property-card">
+                            <div class="card-body">
+                                <h5 class="card-title">${prop.name}</h5>
+                                <p class="card-text text-muted">ID: ${prop.id}</p>
+                                <div class="mb-3">${channelsHtml}</div>
+                                <p class="card-text"><strong>Totale mappature:</strong> ${prop.total_mappings}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += card;
+            });
+        }
+
+        async function triggerSync() {
+            if (!confirm('Vuoi avviare la sincronizzazione manuale?')) return;
+            
+            try {
+                const response = await fetch(`${API_BASE}trigger_sync.php`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-KEY': API_KEY
+                    },
+                    body: JSON.stringify({})
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    alert('✅ Sincronizzazione completata!\n\nProprietà sincronizzate: ' + 
+                          Object.keys(data.data.properties_synced).length);
+                    loadProperties();
+                } else {
+                    alert('❌ Errore: ' + data.error);
+                }
+            } catch (error) {
+                alert('❌ Errore di connessione: ' + error.message);
+            }
+        }
+
+        // Carica le proprietà al caricamento della pagina
+        loadProperties();
+    </script>
+</body>
+</html>

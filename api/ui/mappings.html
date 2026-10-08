@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Channel Manager - Mappature Dettagliate</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; }
+        .mapping-card { border-left: 4px solid #0d6efd; }
+        .warning-badge { background-color: #ffc107; color: #000; }
+        .success-badge { background-color: #198754; }
+        .detail-row { background-color: #f8f9fa; padding: 10px; border-radius: 5px; margin-top: 5px; }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">🏨 Channel Manager</a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="dashboard.html">Dashboard</a>
+                <a class="nav-link active" href="mappings.html">Mappature</a>
+                <a class="nav-link" href="logs.html">Log</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h2>Mappature Dettagliate</h2>
+        <p class="text-muted">Visualizza i dettagli delle mappature tra HotelDruid e gli OTA</p>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="propertySelect" class="form-label">Seleziona Proprietà:</label>
+                <select id="propertySelect" class="form-select" onchange="loadChannels()">
+                    <option value="">-- Seleziona --</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="channelSelect" class="form-label">Seleziona Canale:</label>
+                <select id="channelSelect" class="form-select" onchange="loadMappings()">
+                    <option value="">-- Seleziona prima una proprietà --</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="mappings-container"></div>
+    </div>
+
+    <script>
+        const API_KEY = 'MiaChiaveSegretaSuperComplessa_2026';
+        const API_BASE = '../';
+        let allProperties = {};
+
+        async function init() {
+            try {
+                const response = await fetch(`${API_BASE}get_properties.php`, {
+                    headers: { 'X-API-KEY': API_KEY }
+                });
+                const data = await response.json();
+                
+                if (data.success) {
+                    allProperties = data.data;
+                    populatePropertySelect();
+                }
+            } catch (error) {
+                console.error('Errore:', error);
+            }
+        }
+
+        function populatePropertySelect() {
+            const select = document.getElementById('propertySelect');
+            select.innerHTML = '<option value="">-- Seleziona --</option>';
+            
+            Object.values(allProperties).forEach(prop => {
+                const option = document.createElement('option');
+                option.value = prop.id;
+                option.textContent = `${prop.name} (${prop.id})`;
+                select.appendChild(option);
+            });
+        }
+
+        function loadChannels() {
+            const propertyId = document.getElementById('propertySelect').value;
+            const channelSelect = document.getElementById('channelSelect');
+            channelSelect.innerHTML = '<option value="">-- Seleziona --</option>';
+            
+            if (!propertyId) return;
+            
+            const property = allProperties[propertyId];
+            Object.keys(property.channels).forEach(channel => {
+                const option = document.createElement('option');
+                option.value = channel;
+                option.textContent = channel.toUpperCase();
+                channelSelect.appendChild(option);
+            });
+            
+            document.getElementById('mappings-container').innerHTML = '';
+        }
+
+        async function loadMappings() {
+            const propertyId = document.getElementById('propertySelect').value;
+            const channel = document.getElementById('channelSelect').value;
+            
+            if (!propertyId || !channel) {
+                document.getElementById('mappings-container').innerHTML = '';
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE}get_mappings_detail.php?property_id=${propertyId}&channel=${channel}`, {
+                    headers: { 'X-API-KEY': API_KEY }
+                });
+                const data = await response.json();
+                
+                if (data.success) {
+                    renderMappings(data.data);
+                } else {
+                    document.getElementById('mappings-container').innerHTML = 
+                        `<div class="alert alert-danger">${data.error}</div>`;
+                }
+            } catch (error) {
+                console.error('Errore:', error);
+            }
+        }
+
+        function renderMappings(data) {
+            const container = document.getElementById('mappings-container');
+            
+            // Status badges
+            const credStatus = data.credentials_configured 
+                ? '<span class="badge success-badge">✓ Credenziali configurate</span>'
+                : '<span class="badge warning-badge">⚠ Credenziali da configurare</span>';
+            
+            const propertyIdStatus = data.property_id_ota !== 'N/A' && !data.property_id_ota.includes('INSERISCI')
+                ? '<span class="badge success-badge">✓ Property ID configurato</span>'
+                : '<span class="badge warning-badge">⚠ Property ID da configurare</span>';
+            
+            let html = `
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">${data.property_name} - ${data.channel.toUpperCase()}</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <strong>Stato Configurazione:</strong><br>
+                            ${credStatus} ${propertyIdStatus}
+                        </div>
+                        <div class="mb-3">
+                            <strong>Property ID OTA:</strong> <code>${data.property_id_ota}</code>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Totale mappature:</strong> ${data.mappings.length}
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            if (data.mappings.length === 0) {
+                html += '<div class="alert alert-info">Nessuna mappatura configurata per questo canale.</div>';
+            } else {
+                html += '<div class="row">';
+                data.mappings.forEach((mapping, index) => {
+                    html += `
+                        <div class="col-md-6 mb-3">
+                            <div class="card mapping-card">
+                                <div class="card-body">
+                                    <h6 class="card-title">Mappatura #${index + 1}</h6>
+                                    <div class="detail-row">
+                                        <strong>HotelDruid:</strong><br>
+                                        <small>Tariffa ID: <code>${mapping.hd_rate_id}</code></small><br>
+                                        <small>Nome: ${mapping.hd_rate_name}</small><br>
+                                        <small>Camera ID: <code>${mapping.camera_id}</code></small>
+                                    </div>
+                                    <div class="detail-row mt-2">
+                                        <strong>${data.channel.toUpperCase()}:</strong><br>
+                                        <small>Room ID: <code>${mapping.ota_room_id}</code></small><br>
+                                        <small>Rate ID: <code>${mapping.ota_rate_id}</code></small><br>
+                                        <small>Rate Name: ${mapping.ota_rate_name}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+            }
+            
+            container.innerHTML = html;
+        }
+
+        init();
+    </script>
+</body>
+</html>

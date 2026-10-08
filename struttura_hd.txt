@@ -1,0 +1,166 @@
+.
+├── aggiorna.php
+├── api.php
+├── base.css
+├── base.js
+├── clienti.php
+├── COPYING
+├── costanti.php
+├── costi.php
+├── creaanno.php
+├── crea_backup.php
+├── creadb.php
+├── crea_modelli.php
+├── creaprezzi.php
+├── crearegole.php
+├── dati
+│   └── DATI
+├── dati_relutenti.php
+├── disponibilita.php
+├── doc
+│   ├── CHANGELOG
+│   ├── README.english
+│   ├── README.espagnol
+│   ├── README.italiano
+│   ├── README.themes
+│   ├── README.translation
+│   └── TODO
+├── docker-compose.yml
+├── Dockerfile
+├── gestione_utenti.php
+├── img
+│   ├── aggiorna.png
+│   ├── button28.gif
+│   ├── button.gif
+│   ├── croce.gif
+│   ├── dir1_des.png
+│   ├── dir1_sin.png
+│   ├── dir2_des.png
+│   ├── dir2_sin.png
+│   ├── dir3_des.png
+│   ├── dir3_sin.png
+│   ├── favicon.ico
+│   ├── freccia_destra_marg.png
+│   ├── freccia_giu_marg.png
+│   ├── freccia_sinistra_marg.png
+│   ├── freccia_su_marg.png
+│   ├── fr_sx_checkin.gif
+│   ├── fr_sx_rossa.gif
+│   ├── logo144x144.png
+│   ├── logo48x48.png
+│   ├── logo96x96.png
+│   └── logo.png
+├── includes
+│   ├── costanti.php
+│   ├── dati_form_prenotazione.php
+│   ├── dati_lista_cassa.php
+│   ├── dati_lista_clienti.php
+│   ├── dati_lista_prenota.php
+│   ├── files_sorgente.php
+│   ├── foot.php
+│   ├── funzioni_aggiorna.php
+│   ├── funzioni_anno.php
+│   ├── funzioni_appartamenti.php
+│   ├── funzioni_backup.php
+│   ├── funzioni_clienti.php
+│   ├── funzioni_contratti.php
+│   ├── funzioni_costi_agg.php
+│   ├── funzioni_dati_relutenti.php
+│   ├── funzioni_email.php
+│   ├── funzioni_ins_prenota.php
+│   ├── funzioni_log.php
+│   ├── funzioni_menu.php
+│   ├── funzioni_mod_contratti.php
+│   ├── funzioni_mod_prenota.php
+│   ├── funzioni_mysql_extra.php
+│   ├── funzioni_mysqli_extra.php
+│   ├── funzioni_mysqli.php
+│   ├── funzioni_mysql.php
+│   ├── funzioni.php
+│   ├── funzioni_postgresql_extra.php
+│   ├── funzioni_postgresql.php
+│   ├── funzioni_quadro_disp.php
+│   ├── funzioni_relutenti.php
+│   ├── funzioni_sqlite_extra.php
+│   ├── funzioni_sqlite.php
+│   ├── funzioni_tariffe.php
+│   ├── funzioni_testo.php
+│   ├── funzioni_web.php
+│   ├── head.php
+│   ├── hoteld_doc_backup.php
+│   ├── interconnect
+│   │   ├── aggiorna_ic_fork.php
+│   │   └── aggiorna_ic.php
+│   ├── lang
+│   │   ├── en
+│   │   └── es
+│   ├── liberasettimane.php
+│   ├── lista_citta.php
+│   ├── lista_documentiid.php
+│   ├── lista_nazioni.php
+│   ├── lista_pagamenti.php
+│   ├── lista_parentele.php
+│   ├── lista_regioni.php
+│   ├── locale.php
+│   ├── sett_gio.php
+│   ├── spezzaprenota.php
+│   ├── templates
+│   │   ├── aggiorna_modelli.php
+│   │   ├── cal
+│   │   ├── frasi_mod_disp.php
+│   │   ├── funzioni_mod_disp.php
+│   │   ├── funzioni_modelli.php
+│   │   ├── modello_disponibilita.php
+│   │   ├── rat
+│   │   └── temi_mod_disp.php
+│   ├── unit.php
+│   └── variabili_contratto.php
+├── index.html
+├── inizio.php
+├── interconnessioni.php
+├── inventario.php
+├── messaggi.php
+├── modifica_app.php
+├── modifica_cliente.php
+├── modifica_contratto.php
+├── modifica_costi.php
+├── modifica_ospiti.php
+├── modifica_prenota.php
+├── modifica_var_contr.php
+├── mostra_sorgente.php
+├── nginx.conf
+├── NO_SOURCE_CODE_UPDATE
+├── personalizza.php
+├── prenota.php
+├── privilegi_utenti.php
+├── punto_vendita.php
+├── README
+├── storia_soldi.php
+├── struttura_hd.txt
+├── sw.js
+├── sw_offline.html
+├── tabella2.php
+├── tabella3.php
+├── tabella.php
+├── tab_tariffe.php
+├── themes
+│   ├── blu
+│   │   ├── img
+│   │   ├── inc
+│   │   └── php
+│   ├── col
+│   │   ├── img
+│   │   ├── inc
+│   │   └── php
+│   ├── sim
+│   │   ├── img
+│   │   ├── inc
+│   │   └── php
+│   └── snj
+│       ├── img
+│       ├── inc
+│       └── php
+├── visualizza_contratto.php
+└── visualizza_tabelle.php
+
+29 directories, 135 files

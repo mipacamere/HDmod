@@ -1,0 +1,26 @@
+ 
+{
+    "name": "HotelDruid",
+    "short_name": "HotelDruid",
+    "theme_color": "#ffffff",
+    "background_color": "#dddddd",
+    "display": "standalone",
+    "scope": "/",
+    "start_url": "../../../inizio.php",
+    "description": "HotelDruid: Hotel Management App",
+    "orientation": "any",
+    "icons": [
+        {
+            "src": "../../../img/logo48x48.png",
+            "sizes": "48x48"
+        },
+        {
+            "src": "../../../img/logo96x96.png",
+            "sizes": "96x96"
+        },
+        {
+            "src": "../../../img/logo144x144.png",
+            "sizes": "144x144"
+        }
+    ]
+}

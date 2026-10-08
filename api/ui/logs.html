@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Channel Manager - Log</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .log-success { background-color: #d4edda; }
+        .log-error { background-color: #f8d7da; }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">🏨 Channel Manager</a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="dashboard.html">Dashboard</a>
+                <a class="nav-link" href="mappings.html">Mappature</a>
+                <a class="nav-link active" href="logs.html">Log</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Log Sincronizzazioni</h2>
+            <button class="btn btn-outline-primary" onclick="loadLogs()">
+                🔄 Aggiorna
+            </button>
+        </div>
+
+        <div id="logs-container">
+            <!-- I log verranno caricati qui -->
+        </div>
+    </div>
+
+    <script>
+        const API_KEY = 'MiaChiaveSegretaSuperComplessa_2026';
+        const API_BASE = '../';
+
+        async function loadLogs() {
+            try {
+                const response = await fetch(`${API_BASE}get_logs.php`, {
+                    headers: { 'X-API-KEY': API_KEY }
+                });
+                const data = await response.json();
+                
+                if (data.success) {
+                    renderLogs(data.data);
+                }
+            } catch (error) {
+                console.error('Errore:', error);
+            }
+        }
+
+        function renderLogs(logs) {
+            const container = document.getElementById('logs-container');
+            
+            if (logs.length === 0) {
+                container.innerHTML = '<div class="alert alert-info">Nessun log disponibile. Esegui una sincronizzazione dalla Dashboard.</div>';
+                return;
+            }
+            
+            let html = '<div class="list-group">';
+            
+            logs.forEach(log => {
+                const statusClass = log.status === 'success' ? 'log-success' : 'log-error';
+                const statusIcon = log.status === 'success' ? '✅' : '❌';
+                
+                html += `
+                    <div class="list-group-item ${statusClass}">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">${statusIcon} ${log.property_id}</h6>
+                            <small class="text-muted">${log.timestamp}</small>
+                        </div>
+                        <p class="mb-1">${log.message}</p>
+                        ${log.details.checkin ? `
+                            <small>
+                                <strong>Periodo:</strong> ${log.details.checkin} → ${log.details.checkout} |
+                                <strong>Camere:</strong> ${log.details.rates_count}
+                            </small>
+                        ` : ''}
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            container.innerHTML = html;
+        }
+
+        loadLogs();
+    </script>
+</body>
+</html>

@@ -1,0 +1,2 @@
+Cognome,Nome,Data_inizio,Data_fine,Appartamento,Tariffa,Numero_persone,Prezzo_totale,Pagato,Commento
+Rossi,Mario,2026-08-20,2026-08-25,BB1,"Tariffa Non Rimborsabile",2,"750,00","150,00","Importata da Middleware OTA - ID Esterno: AIRBNB-998877"

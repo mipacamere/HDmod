@@ -1,0 +1,43 @@
+
+INSTRUCTIONS TO TRANSLATE HOTELDRUID
+
+To translate hoteldruid to another language duplicate the directory
+/includes/lang/en renaming it to the acronym of the new language
+(maximum 3 letters). After that change the full name of the language in
+the file l_n inside that directory. Eventually remove the "locales" 
+directory if your language doesn't need localizations for specific 
+countries.
+
+Now you should be able to choose the new language when installing or
+from "Configure and customize", but obviously it will still display
+messages in English. To change them you must edit all files in the new
+language directory, replacing the phrases in English between quotation
+marks (right column) with their translations. Remember that you must
+always use \" instead of " and \$ instead of $ in the phrases. See 
+comments in the files (lines that begin with #) for special cases. As 
+you replace phrases in the files you can see how they change also in 
+the corresponding pages by reloading them in the browser.
+
+In the "locales" directory you can add other directories (maximum 3 
+letters acronyms) for localizations needed by specific countries. 
+Inside each directory there must be at least a file called "l_n", 
+containing the name of the country. Other files are optional and will 
+be used instead of the same files present in the language directory, 
+when the locale is selected. These files can be all the lists (the 
+ones beginning with "lista_"), "locale.php" and the backup of the 
+default documents called "hoteld_doc_backup.php".
+
+The files are encoded with unicode utf-8, so you should use a text 
+editor that supports this encoding. For example in Linux you can use 
+Kate that supports saving in utf-8 even if that's not set as your 
+default locale.
+
+Please check if a translation for your language already exists on the 
+hoteldruid website, in this case you can download it and eventually 
+edit it to translate only the phrases that are still in English (you 
+will find them at the end of each file).
+
+If you make a translation in your own language feel free to send it to
+me at marco@digitaldruid.net under the GPLv3 license, so I can put it 
+on hoteldruid website for download.
+

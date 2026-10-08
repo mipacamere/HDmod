@@ -1,0 +1,28 @@
+services:
+  web:
+    build: .
+    container_name: hoteldruid-web
+    ports:
+      - "8080:80"
+    environment:
+      - TZ=Europe/Rome
+    volumes:
+      - .:/var/www/html
+      - ./dati:/var/www/html/dati
+    depends_on:
+      - db
+    restart: unless-stopped
+
+  db:
+    image: postgres:15
+    container_name: hoteldruid-db
+    environment:
+      POSTGRES_DB: hoteldruid
+      POSTGRES_USER: hoteldruid
+      POSTGRES_PASSWORD: hoteldruid123
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  postgres_data:

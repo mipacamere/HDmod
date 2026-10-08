@@ -1,0 +1,24 @@
+[
+    {
+        "timestamp": "2026-07-24 10:13:58",
+        "property_id": "bbnazionale",
+        "status": "success",
+        "message": "Payload XML generato correttamente (pronto per l'invio)",
+        "details": {
+            "checkin": "2026-07-31",
+            "checkout": "2026-08-07",
+            "rates_count": 5
+        }
+    },
+    {
+        "timestamp": "2026-07-24 10:13:58",
+        "property_id": "mipa",
+        "status": "success",
+        "message": "Payload XML generato correttamente (pronto per l'invio)",
+        "details": {
+            "checkin": "2026-07-31",
+            "checkout": "2026-08-07",
+            "rates_count": 4
+        }
+    }
+]
